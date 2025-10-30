@@ -1,179 +1,195 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Morris Digital Store - Digital Solutions</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<style>
-* { font-family: 'Inter', sans-serif; }
-.gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-.product-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
-.product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); }
-.nav-link { position: relative; }
-.nav-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0; background-color: #667eea; transition: width 0.3s ease; }
-.nav-link:hover::after { width: 100%; }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Morris Digital Store | Earn Online Worldwide</title>
+  <style>
+    :root {
+      --primary: #000;
+      --secondary: #b59410;
+      --accent: #ffd700;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #111;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: var(--primary);
+      color: var(--accent);
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      background: #222;
+      padding: 10px;
+    }
+    nav button {
+      background: var(--secondary);
+      border: none;
+      color: #000;
+      padding: 8px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    nav button:hover {
+      background: var(--accent);
+    }
+    main {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      padding: 2rem;
+    }
+    .product-card {
+      background: #1a1a1a;
+      border-radius: 15px;
+      padding: 1rem;
+      text-align: center;
+      transition: 0.3s;
+      border: 1px solid #333;
+    }
+    .product-card:hover {
+      transform: scale(1.03);
+      border-color: var(--accent);
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+    }
+    .product-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+    .product-card h3 {
+      font-size: 1.1rem;
+      margin: 10px 0 5px;
+      color: var(--accent);
+    }
+    .product-card p {
+      font-size: 0.9rem;
+      color: #ddd;
+    }
+    .price {
+      color: var(--secondary);
+      font-weight: 600;
+    }
+    .buy-btn {
+      display: inline-block;
+      margin-top: 10px;
+      background: var(--accent);
+      color: #000;
+      padding: 10px 20px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .buy-btn:hover {
+      background: #fff;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #000;
+      color: #aaa;
+      border-top: 1px solid #333;
+    }
+  </style>
 </head>
-<body class="bg-gray-50">
+<body>
+  <header>
+    Morris Digital Store 💰 <br />
+    <small>Earn Online Worldwide</small>
+  </header>
 
-<!-- Header -->
-<header class="gradient-bg text-white">
-  <div class="container mx-auto px-4 py-6 flex justify-between items-center">
-    <div class="flex items-center">
-      <i class="fas fa-laptop-code text-3xl mr-3"></i>
-      <h1 class="text-2xl font-bold">Morris Digital Store</h1>
-    </div>
-    <nav class="hidden md:flex space-x-8">
-      <a href="#" class="nav-link font-medium">Home</a>
-      <a href="#products" class="nav-link font-medium">Products</a>
-      <a href="#services" class="nav-link font-medium">Services</a>
-      <a href="#about" class="nav-link font-medium">About</a>
-      <a href="#contact" class="nav-link font-medium">Contact</a>
-    </nav>
-    <div class="flex items-center space-x-4">
-      <button class="bg-white text-purple-700 px-4 py-2 rounded-lg font-medium hover:bg-gray-100 transition">
-        <i class="fas fa-shopping-cart mr-2"></i>Cart (0)
-      </button>
-      <button class="md:hidden text-white" id="menu-toggle">
-        <i class="fas fa-bars text-2xl"></i>
-      </button>
-    </div>
-  </div>
-</header>
+  <nav>
+    <button onclick="filterByCategory('all')">All</button>
+    <button onclick="filterByCategory('fitness')">Fitness</button>
+    <button onclick="filterByCategory('crypto')">Crypto</button>
+    <button onclick="filterByCategory('business')">Business</button>
+    <button onclick="filterByCategory('software')">Software</button>
+  </nav>
 
-<!-- Mobile Menu -->
-<nav id="mobile-menu" class="hidden bg-purple-700 text-white flex flex-col space-y-2 px-4 py-4 md:hidden">
-  <a href="#" class="font-medium">Home</a>
-  <a href="#products" class="font-medium">Products</a>
-  <a href="#services" class="font-medium">Services</a>
-  <a href="#about" class="font-medium">About</a>
-  <a href="#contact" class="font-medium">Contact</a>
-</nav>
+  <main id="product-grid"></main>
 
-<!-- Hero Section -->
-<section class="gradient-bg text-white py-16 md:py-24 text-center">
-  <h2 class="text-4xl md:text-5xl font-bold mb-6">Digital Solutions for Modern Businesses</h2>
-  <p class="text-xl mb-10 max-w-2xl mx-auto">We provide cutting-edge digital products and services to help your business thrive in the digital age.</p>
-  <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-    <a href="#products" class="bg-white text-purple-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">
-      Explore Products <i class="fas fa-arrow-right ml-2"></i>
-    </a>
-    <a href="#services" class="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-purple-700 transition">
-      Learn More
-    </a>
-  </div>
-</section>
+  <footer>© 2025 Morris Digital Store. All Rights Reserved.</footer>
 
-<!-- Products Section -->
-<section id="products" class="py-16 bg-white">
-  <div class="container mx-auto px-4">
-    <h2 class="text-3xl font-bold text-center mb-12">Our Digital Products</h2>
-    <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      <!-- Products will be dynamically loaded here -->
-    </div>
-  </div>
-</section>
+  <script>
+  const productGrid = document.getElementById("product-grid");
 
-<!-- Services Section -->
-<section id="services" class="py-16 bg-gray-100">
-  <div class="container mx-auto px-4">
-    <h2 class="text-3xl font-bold text-center mb-12">Our Services</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-center">
-        <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <i class="fas fa-code text-purple-600 text-2xl"></i>
-        </div>
-        <h3 class="text-xl font-bold mb-3">Web Development</h3>
-        <p class="text-gray-600">Custom websites and web applications tailored to your business needs.</p>
+  const demoProducts = [
+    {
+      title: "Crypto Mastery Course",
+      description: "Learn cryptocurrency trading from scratch and earn passive income.",
+      category: "crypto",
+      priceText: "$49.99",
+      commissionPct: "50",
+      affiliateLink: "https://www.digistore24.com/redir/12345/Morrismbuvi",
+      image: "https://via.placeholder.com/300x180?text=Crypto+Course"
+    },
+    {
+      title: "Fitness Transformation Program",
+      description: "12-week online fitness coaching to get you in the best shape.",
+      category: "fitness",
+      priceText: "$39.00",
+      commissionPct: "60",
+      affiliateLink: "https://www.digistore24.com/redir/23456/Morrismbuvi",
+      image: "https://via.placeholder.com/300x180?text=Fitness+Program"
+    },
+    {
+      title: "Affiliate Marketing Blueprint",
+      description: "Step-by-step training to build your online business fast.",
+      category: "business",
+      priceText: "$59.00",
+      commissionPct: "75",
+      affiliateLink: "https://www.digistore24.com/redir/34567/Morrismbuvi",
+      image: "https://via.placeholder.com/300x180?text=Affiliate+Blueprint"
+    },
+    {
+      title: "AI Business Automation Tool",
+      description: "Use AI to automate your marketing and increase sales.",
+      category: "software",
+      priceText: "$79.00",
+      commissionPct: "40",
+      affiliateLink: "https://www.digistore24.com/redir/45678/Morrismbuvi",
+      image: "https://via.placeholder.com/300x180?text=AI+Software"
+    }
+  ];
+
+  function loadProducts() {
+    productGrid.innerHTML = demoProducts.map(p => `
+      <div class="product-card" data-category="${p.category}">
+        <img src="${p.image}" alt="${p.title}">
+        <h3>${p.title}</h3>
+        <p>${p.description}</p>
+        <p class="price">${p.priceText} | ${p.commissionPct}% Commission</p>
+        <a href="${p.affiliateLink}" target="_blank" class="buy-btn">View Offer</a>
       </div>
-      <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-center">
-        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <i class="fas fa-mobile-alt text-blue-600 text-2xl"></i>
-        </div>
-        <h3 class="text-xl font-bold mb-3">App Development</h3>
-        <p class="text-gray-600">Native and cross-platform mobile applications for iOS and Android.</p>
-      </div>
-      <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-center">
-        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <i class="fas fa-search text-green-600 text-2xl"></i>
-        </div>
-        <h3 class="text-xl font-bold mb-3">Digital Marketing</h3>
-        <p class="text-gray-600">Comprehensive digital marketing strategies to grow your online presence.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Footer -->
-<footer class="bg-gray-800 text-white py-12">
-  <div class="container mx-auto px-4 text-center">
-    <p>&copy; 2025 Morris Digital Store. All rights reserved.</p>
-  </div>
-</footer>
-
-<!-- Scripts -->
-<script>
-// Mobile menu toggle
-const menuToggle = document.getElementById('menu-toggle');
-const mobileMenu = document.getElementById('mobile-menu');
-menuToggle.addEventListener('click', () => {
-  mobileMenu.classList.toggle('hidden');
-});
-
-// Digistore24 Products Fetch
-const affiliateID = 'Morrismbuvi';
-const productGrid = document.getElementById('product-grid');
-
-// Sample Digistore24 API (replace with real API if available)
-const products = [
-  {
-    title: "Web Development Toolkit",
-    price: "$149",
-    description: "Complete suite of tools for modern web development.",
-    image: "https://via.placeholder.com/400x200?text=Web+Dev",
-    link: `https://www.digistore24.com/redir/38219/${affiliateID}/`
-  },
-  {
-    title: "UI/UX Design Assets",
-    price: "$99",
-    description: "Premium design resources for stunning interfaces.",
-    image: "https://via.placeholder.com/400x200?text=UI+UX",
-    link: `https://www.digistore24.com/redir/38219/${affiliateID}/`
-  },
-  {
-    title: "Digital Marketing Suite",
-    price: "$199",
-    description: "Tools and templates for effective digital marketing.",
-    image: "https://via.placeholder.com/400x200?text=Marketing",
-    link: `https://www.digistore24.com/redir/38219/${affiliateID}/`
+    `).join("");
   }
-];
 
-// Generate product cards dynamically
-products.forEach(product => {
-  const card = document.createElement('div');
-  card.className = 'product-card bg-white rounded-xl shadow-md overflow-hidden border border-gray-100';
-  card.innerHTML = `
-    <div class="h-48 flex items-center justify-center bg-gradient-to-r from-purple-400 to-indigo-500">
-      <img src="${product.image}" alt="${product.title}" class="h-full w-full object-cover">
-    </div>
-    <div class="p-6">
-      <h3 class="text-xl font-bold mb-2">${product.title}</h3>
-      <p class="text-gray-600 mb-4">${product.description}</p>
-      <div class="flex justify-between items-center">
-        <span class="text-2xl font-bold text-purple-600">${product.price}</span>
-        <a href="${product.link}" target="_blank" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition">
-          Buy Now
-        </a>
-      </div>
-    </div>
-  `;
-  productGrid.appendChild(card);
-});
-</script>
+  function filterByCategory(cat) {
+    const cards = document.querySelectorAll(".product-card");
+    cards.forEach(card => {
+      const match = cat === 'all' || card.dataset.category === cat;
+      card.style.display = match ? "block" : "none";
+    });
+  }
 
+  loadProducts();
+  </script>
 </body>
 </html>
+
